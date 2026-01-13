@@ -4,11 +4,11 @@
 [![MCP](https://img.shields.io/badge/MCP-1.0-green.svg)](https://modelcontextprotocol.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Production-ready MCP server for the complete Telegram Bot API. **161 methods** with token-optimized meta mode (~157 tokens vs ~55,000).
+Production-ready MCP server for the complete Telegram Bot API. **162 methods** with token-optimized meta mode (~157 tokens vs ~55,000).
 
 ## Highlights
 
-- **Complete API coverage** — All 161 Telegram Bot API methods
+- **Complete API coverage** — All 162 Telegram Bot API methods
 - **Token efficient** — Meta mode reduces context by 99.7%
 - **Production hardened** — Circuit breaker, rate limiting, retries with backoff
 - **Observable** — Prometheus metrics, structured logging, health checks
@@ -75,7 +75,7 @@ Get your bot token from [@BotFather](https://t.me/BotFather), then add to your M
 All 161 Telegram Bot API methods organized by category.
 
 <details>
-<summary><strong>Messages</strong> (22 methods)</summary>
+<summary><strong>Messages</strong> (23 methods)</summary>
 
 | Method | Description |
 |--------|-------------|
@@ -95,6 +95,7 @@ All 161 Telegram Bot API methods organized by category.
 | `sendChatAction` | Send typing indicator |
 | `sendMediaGroup` | Send media album |
 | `sendPaidMedia` | Send paid media |
+| `sendMessageDraft` | Stream partial message (AI) |
 | `forwardMessage` | Forward message |
 | `forwardMessages` | Forward multiple messages |
 | `copyMessage` | Copy message |

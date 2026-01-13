@@ -1,0 +1,26 @@
+# Source files
+src/
+tests/
+*.ts
+!*.d.ts
+
+# Config files
+tsconfig.json
+vitest.config.ts
+.gitignore
+
+# Dev files
+.env*
+.mcp.json
+coverage/
+TODO.md
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

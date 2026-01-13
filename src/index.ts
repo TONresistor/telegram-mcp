@@ -2,7 +2,6 @@
 
 /**
  * Telegram Bot API MCP Server
- * Compatible with Claude Code / Claude AI
  *
  * This server exposes the complete Telegram Bot API as MCP tools.
  *

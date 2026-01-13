@@ -1,9 +1,9 @@
 /**
  * Tool Registry for Meta-Tools Mode
  *
- * Contains an index of all 161 Telegram API tools with searchable keywords.
- * This enables the meta-tools pattern where only 2 tools are exposed to Claude,
- * reducing token usage by ~98%.
+ * Contains an index of all 162 Telegram API tools with searchable keywords.
+ * This enables the meta-tools pattern where only 2 tools are exposed to the LLM,
+ * reducing token usage by ~99%.
  */
 
 export interface ToolEntry {
@@ -194,6 +194,14 @@ export const toolRegistry: ToolEntry[] = [
     keywords: ["send", "checklist", "todo", "tasks", "list"],
     required: ["business_connection_id", "chat_id", "checklist"],
     optional: []
+  },
+  {
+    name: "sendMessageDraft",
+    category: "messages",
+    description: "Stream partial messages while being generated (AI streaming)",
+    keywords: ["send", "message", "draft", "stream", "partial", "ai", "progressive", "typing"],
+    required: ["chat_id", "draft_message"],
+    optional: ["business_connection_id", "message_thread_id", "direct_messages_topic_id", "reply_parameters"]
   },
 
   // ==========================================================================

@@ -250,6 +250,22 @@ const schemaFactories: Record<string, () => ZodType> = {
       })
       .passthrough(),
 
+  sendMessageDraft: () =>
+    z
+      .object({
+        chat_id: getChatIdSchema(),
+        draft_message: z.object({
+          text: z.string().min(1).max(4096),
+          parse_mode: z.enum(["Markdown", "MarkdownV2", "HTML"]).optional(),
+          entities: z.array(z.object({}).passthrough()).optional(),
+        }),
+        business_connection_id: z.string().optional(),
+        message_thread_id: z.number().int().optional(),
+        direct_messages_topic_id: z.number().int().optional(),
+        reply_parameters: z.object({}).passthrough().optional(),
+      })
+      .passthrough(),
+
   sendChatAction: () =>
     z
       .object({
