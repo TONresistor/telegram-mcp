@@ -3,6 +3,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)](https://www.typescriptlang.org/)
 [![MCP](https://img.shields.io/badge/MCP-1.0-green.svg)](https://modelcontextprotocol.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/@tonresistor/telegram-mcp.svg)](https://www.npmjs.com/package/@tonresistor/telegram-mcp)
 
 Production-ready MCP server for the complete Telegram Bot API. **162 methods** with token-optimized meta mode (~157 tokens vs ~55,000).
 
@@ -14,11 +15,19 @@ Production-ready MCP server for the complete Telegram Bot API. **162 methods** w
 - **Observable** — Prometheus metrics, structured logging, health checks
 - **Type safe** — Full TypeScript with Zod validation
 
-## Quick Start
+## Installation
 
 ```bash
-npm install && npm run build
+npm install @tonresistor/telegram-mcp
 ```
+
+Or clone and build from source:
+```bash
+git clone https://github.com/TONresistor/telegram-mcp.git
+cd telegram-mcp && npm install && npm run build
+```
+
+## Quick Start
 
 Get your bot token from [@BotFather](https://t.me/BotFather), then add to your MCP config:
 
