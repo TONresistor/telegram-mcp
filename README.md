@@ -49,12 +49,12 @@ Get your bot token from [@BotFather](https://t.me/BotFather), then add to your M
 
 | Mode | Entry Point | Tools | Best For |
 |------|-------------|-------|----------|
-| **Meta** (recommended) | `index-meta.js` | 2 | Production — minimal token usage |
-| Standard | `index.js` | 161 | Development — direct tool access |
+| **Meta** (recommended) | `index-meta.js` | 2 | Production: minimal token usage |
+| Standard | `index.js` | 161 | Development: direct tool access |
 
 **Meta mode** exposes just 2 tools:
-- `telegram_find` — Search methods by name or category
-- `telegram_call` — Execute any Telegram API method
+- `telegram_find`: Search methods by name or category
+- `telegram_call`: Execute any Telegram API method
 
 ## Configuration
 
@@ -70,14 +70,14 @@ Get your bot token from [@BotFather](https://t.me/BotFather), then add to your M
 ## Features
 
 ### Resilience
-- **Circuit breaker** — Opens after 5 failures, auto-recovers after 30s
-- **Rate limiting** — Global + per-chat (respects Telegram limits)
-- **Retries** — Exponential backoff with jitter
+- **Circuit breaker:** Opens after 5 failures, auto-recovers after 30s
+- **Rate limiting:** Global + per-chat (respects Telegram limits)
+- **Retries:** Exponential backoff with jitter
 
 ### Observability
-- **Prometheus metrics** — Request counts, latencies, error rates
-- **Health checks** — Kubernetes-ready readiness/liveness probes
-- **Structured logging** — JSON format with automatic secret redaction
+- **Prometheus metrics:** Request counts, latencies, error rates
+- **Health checks:** Kubernetes-ready readiness/liveness probes
+- **Structured logging:** JSON format with automatic secret redaction
 
 ## API Reference
 
