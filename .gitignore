@@ -32,3 +32,6 @@ coverage/
 
 # Generated files
 *.tsbuildinfo
+
+# Docker
+.docker/

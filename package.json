@@ -16,6 +16,7 @@
     "build": "tsc",
     "start": "node build/index.js",
     "start:meta": "node build/index-meta.js",
+    "start:http": "node build/index-http.js",
     "dev": "tsc --watch",
     "clean": "rm -rf build",
     "rebuild": "npm run clean && npm run build",

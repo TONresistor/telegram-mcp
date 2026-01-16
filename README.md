@@ -55,10 +55,13 @@ Get your bot token from [@BotFather](https://t.me/BotFather), then add to your M
 |------|-------------|-------|----------|
 | **Meta** (recommended) | `index-meta.js` | 2 | Production: minimal token usage |
 | Standard | `index.js` | 161 | Development: direct tool access |
+| **HTTP** | `index-http.js` | 161 | Remote access: OpenAI, web apps |
 
 **Meta mode** exposes just 2 tools:
 - `telegram_find`: Search methods by name or category
 - `telegram_call`: Execute any Telegram API method
+
+**HTTP mode** exposes the same 161 tools over HTTP using the MCP Streamable HTTP transport, allowing remote LLMs (OpenAI, etc.) and web applications to access the Telegram API.
 
 ## Configuration
 
@@ -70,6 +73,144 @@ Get your bot token from [@BotFather](https://t.me/BotFather), then add to your M
 | `MAX_RETRIES` | `3` | Retry attempts (0-10) |
 | `RATE_LIMIT_PER_MINUTE` | `30` | Global rate limit (1-60) |
 | `HEALTH_PORT` | — | Enable health endpoints (/health, /metrics) |
+
+### HTTP Mode Configuration
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `MCP_HTTP_PORT` | `3001` | HTTP server port |
+| `MCP_API_KEY` | — | Optional API key for authentication |
+| `CORS_ORIGIN` | `*` | CORS allowed origins |
+
+## HTTP Mode
+
+The HTTP transport allows you to access the MCP server remotely, enabling integration with OpenAI's API, web applications, or any HTTP client.
+
+### Starting the HTTP Server
+
+```bash
+# Set required environment variables
+export TELEGRAM_BOT_TOKEN=your_token_here
+
+# Optional: Set an API key for authentication
+export MCP_API_KEY=your_secret_key
+
+# Start the HTTP server
+npm run start:http
+```
+
+### Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/mcp` | POST | MCP JSON-RPC endpoint |
+| `/health` | GET | Health check |
+
+### Example: List Tools
+
+```bash
+curl -X POST http://localhost:3001/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -H "Authorization: Bearer your_secret_key" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "tools/list",
+    "params": {}
+  }'
+```
+
+### Example: Call a Tool
+
+```bash
+curl -X POST http://localhost:3001/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -H "Authorization: Bearer your_secret_key" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "tools/call",
+    "params": {
+      "name": "sendMessage",
+      "arguments": {
+        "chat_id": 123456789,
+        "text": "Hello from MCP!"
+      }
+    }
+  }'
+```
+
+### Using with OpenAI
+
+To use with OpenAI's function calling:
+
+1. Fetch tools from `/mcp` using `tools/list`
+2. Convert MCP tool schemas to OpenAI function format
+3. When OpenAI returns a `tool_call`, proxy it to `/mcp` using `tools/call`
+
+## Docker Deployment
+
+### Quick Start with Docker Compose
+
+1. Create a `.env` file with your configuration:
+
+```bash
+# Required
+TELEGRAM_BOT_TOKEN=your_token_here
+
+# Optional
+MCP_API_KEY=your_secret_key
+CORS_ORIGIN=*
+LOG_LEVEL=info
+```
+
+2. Start the server:
+
+```bash
+docker compose up -d
+```
+
+3. Check the logs:
+
+```bash
+docker compose logs -f
+```
+
+4. Test the health endpoint:
+
+```bash
+curl http://localhost:3001/health
+```
+
+### Build and Run Manually
+
+```bash
+# Build the image
+docker build -t telegram-mcp .
+
+# Run the container
+docker run -d \
+  --name telegram-mcp \
+  -p 3001:3001 \
+  -e TELEGRAM_BOT_TOKEN=your_token_here \
+  -e MCP_API_KEY=your_secret_key \
+  telegram-mcp
+```
+
+### Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `TELEGRAM_BOT_TOKEN` | **required** | Bot token from BotFather |
+| `MCP_HTTP_PORT` | `3001` | HTTP server port |
+| `MCP_API_KEY` | — | Optional API key for authentication |
+| `CORS_ORIGIN` | `*` | CORS allowed origins |
+| `LOG_LEVEL` | `info` | Log level |
+| `REQUEST_TIMEOUT` | `30000` | Request timeout in ms |
+| `MAX_RETRIES` | `3` | Retry attempts |
+| `RATE_LIMIT_PER_MINUTE` | `30` | Global rate limit |
 
 ## Features
 
